@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %} Profile {% endblock %}
+{% block content %}
+    <h1>{{username}}</h1>
+    <a href="/posts/{{username}}"> Posts </a>
+    </br>
+    <a href="/comments/{{username}}"> Comments </a>
+    <p style="margin-bottom:0;">Email: {{user.email}}</p>
+    <a href="/change-username" style="margin:0; padding-top:0;"> Change username </a>
+    </br>
+    <a href="/change-password" style="margin:0; padding-top:0;"> Change password </a>
+    <p style="margin:0; padding-top:0;">Account created: {{user.date_created}}</p>
+
+{% endblock %}

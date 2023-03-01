@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %} {{username}}'s comments {% endblock %}
+{% block content %}
+<h1>{{username}}'s comments</h1>
+{% if not user.comments %}
+<p>{{username}} has no comments</p>
+{% else %}
+{% for comment in comments%}
+  <p> {{comment.text}} on <a href="/post/{{comment.post_id}}"> Post </a></p>
+{% endfor %}
+{% endif %}
+<div align="center">
+  <a href="/profile/{{user.username}}"
+    ><button type="button" class="btn btn-primary btn-lg">Back</button></a
+  >
+</div>
+{% endblock%}
