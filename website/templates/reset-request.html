@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}{{title}}{% endblock %}
+{% block content%}
+    <form method="POST", action="">
+      <h3 align="center">{{title}}</h3>
+      <div class="form-group">
+        {{ form.hidden_tag() }}
+        {{ form.email.label(class="form-control-label") }}
+        {% for error in form.email.errors %}
+          {{error}}
+        {% endfor %}
+          </br>
+        {{ form.email }}
+          </br>
+          </br>
+        {{ form.submit() }}
+      </div>
+    </form>
+{% endblock %}

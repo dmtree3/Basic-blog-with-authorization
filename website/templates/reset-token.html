@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}{{title}}{% endblock %}
+{% block content%}
+    <form method="POST", action="">
+      <h3 align="center">{{title}}</h3>
+      <div class="form-group">
+        {{ form.hidden_tag() }}
+        {{ form.new_password.label(class="form-control-label") }}
+        {% if form.new_password.errors%}
+          {% for error in form.new_password.errors %}
+            </br>
+            <li>{{error}}</li>
+          {% endfor %}
+          </ul>
+        {% endif %}
+          </br>
+        {{ form.new_password }}
+          </br>
+        {{ form.confirm_password.label(class="form-control-label") }}
+        {% if form.confirm_password.errors%}
+          <ul class='errors'>
+          {% for error in form.confirm_password.errors %}
+            </br>
+            <li>{{error}}</li>
+          {% endfor %}
+          </ul>
+        {% endif %}
+          </br>
+          {{ form.confirm_password }}
+          </br>
+          </br>
+        {{ form.submit() }}
+      </div>
+    </form>
+{% endblock %}

@@ -27,8 +27,9 @@
         {% endif %}
           </br>
         {{ form.password }}
-          </br>
-          </br>
+        <a href="{{url_for('auth.reset_request')}}"> Forgot password? </a>
+        </br>
+        </br>
         {{ form.submit() }}
       </div>
     </form>

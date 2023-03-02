@@ -49,4 +49,19 @@ class ChangeUsernameForm(FlaskForm):
             raise ValidationError('Username is already taken')
 
 
+class RequestResetForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    submit = SubmitField('Reqeust password reset')
+
+    def validate_email(self, email):
+        email_exists = User.query.filter_by(email=email.data).first()
+        if not email_exists:
+            flash('Email you typed is not registered', category='error')
+            raise ValidationError('Email you typed is not registered')
+
+
+class PasswordResetForm(FlaskForm):
+    new_password = PasswordField('New Password', validators=[DataRequired(), Length(min=6, max=20)])
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('new_password')])
+    submit = SubmitField('Reset password')
 
