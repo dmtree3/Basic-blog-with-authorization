@@ -5,6 +5,7 @@ from sqlalchemy import event
 from sqlalchemy.engine import Engine
 from sqlite3 import Connection as SQLite3Connection
 from flask_mail import Mail
+from dotenv import load_dotenv
 import os
 
 
@@ -22,9 +23,14 @@ mail = Mail()
 DB_NAME = 'database.db'
 
 
+def configure():
+    load_dotenv()
+
+
 def create_app():
+    configure()
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = 'never'
+    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
@@ -32,8 +38,8 @@ def create_app():
     app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
     app.config['MAIL_PORT'] = 587
     app.config['MAIL_USE_TLS'] = True
-    app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
-    app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
+    app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
+    app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
     mail.init_app(app)
 
     from .auth import auth
