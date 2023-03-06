@@ -2,6 +2,7 @@ from . import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
 from itsdangerous.url_safe import URLSafeTimedSerializer as Serializer
+import os
 
 
 class User(db.Model, UserMixin):
@@ -14,12 +15,12 @@ class User(db.Model, UserMixin):
     comments = db.relationship('Comment', backref='user', passive_deletes=True)
 
     def generate_reset_token(self):
-        s = Serializer('never')
+        s = Serializer(os.getenv('SECRET_KEY'))
         return s.dumps({'user_id': self.id})
 
     @staticmethod
     def verify_reset_token(token):
-        s = Serializer('never')
+        s = Serializer(os.getenv('SECRET_KEY'))
         try:
             user_id = s.loads(token)['user_id']
         except:
